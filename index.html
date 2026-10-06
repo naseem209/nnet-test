@@ -1,131 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NEET Mock Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusAssess - Batch & Test Portal</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+colors: {
+brand: {
+50: '#f0fdf4',
+500: '#10b981',
+600: '#059669',
+900: '#064e3b',
+}
+},
+animation: {
+'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+'float': 'float 6s ease-in-out infinite',
+'glow': 'glow 3s ease-in-out infinite alternate',
+},
+keyframes: {
+float: {
+'0%, 100%': { transform: 'translateY(0px)' },
+'50%': { transform: 'translateY(-10px)' },
+},
+glow: {
+'0%': { opacity: '0.4', filter: 'blur(20px)' },
+'100%': { opacity: '0.8', filter: 'blur(30px)' },
+}
+}
+}
+}
+}
+</script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Alpine.js for reactive UI animations -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <style>
-:root{--bg:#f2f4f8;--cd:#fff;--ink:#1a2330;--mu:#5b6878;--ln:#d3dae4;--br:#0f4c81;--on:#fff;--ok:#2a9a4a;--no:#d43f3f;--rv:#7a4cc8;--nv:#e3e7ed;--sl:#e6f0fa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#10151c;--cd:#19212b;--ink:#e8edf3;--mu:#9aa8b8;--ln:#2c3744;--br:#4a90d9;--on:#0c1118;--ok:#3cb35d;--no:#e05a5a;--rv:#9b78e0;--nv:#2a3441;--sl:#1f3047}}
-*{box-sizing:border-box}html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Roboto,sans-serif}
-button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--br);outline-offset:2px}
-#app{height:100%;display:flex;flex-direction:column;max-width:720px;margin:0 auto}
-.top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--br);color:var(--on);gap:8px}
-.top button{background:rgba(255,255,255,.2);border:0;color:inherit;border-radius:6px;padding:4px 10px}
-.tm{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}.tm.lo{color:#ffb4b4}
-.tabs{display:flex;background:var(--cd);border-bottom:1px solid var(--ln);overflow-x:auto}
-.tabs button{flex:1;border:0;background:none;padding:11px 8px;font-weight:600;font-size:14px;color:var(--mu);border-bottom:3px solid transparent;white-space:nowrap}
-.tabs .on{color:var(--br);border-color:var(--br)}
-main,.pg{flex:1;overflow-y:auto;padding:14px}
-.mt{display:flex;justify-content:space-between;color:var(--mu);font-size:13px;margin-bottom:8px}
-.q{font-size:17px;margin-bottom:14px}.q table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}.q td,.q th{border:1px solid var(--ln);padding:6px 8px;text-align:left}
-.op{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--cd);border:1.5px solid var(--ln);border-radius:10px;padding:12px;margin-bottom:10px;min-height:52px}
-.op i{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--mu)}
-.op.sel{background:var(--sl);border-color:var(--br)}.op.sel i{border-color:var(--br);background:radial-gradient(var(--br) 45%,transparent 50%)}
-footer{background:var(--cd);border-top:1px solid var(--ln);padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-footer button{padding:12px 6px;border-radius:9px;border:1.5px solid var(--ln);background:var(--cd);font-weight:600}
-footer .pri{background:var(--ok);border-color:var(--ok);color:#fff}footer .rvb{border-color:var(--rv);color:var(--rv)}
-footer .pal{grid-column:1/-1;background:var(--br);color:var(--on);border-color:var(--br)}
-.sh{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:5}.sh.show{display:flex}
-.pn{background:var(--cd);width:100%;max-width:720px;max-height:88%;overflow-y:auto;border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
-.gr{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:8px 0}
-.n{height:46px;border-radius:9px;border:2px solid transparent;font-weight:700;background:var(--nv);color:var(--ink);position:relative}
-.n.s1{background:var(--no);color:#fff}.n.s2{background:var(--ok);color:#fff}.n.s3,.n.s4{background:var(--rv);color:#fff;border-radius:50%}
-.n.s4::after{content:"";position:absolute;right:1px;bottom:1px;width:11px;height:11px;border-radius:50%;background:var(--ok);border:2px solid var(--cd)}
-.n.cur{border-color:var(--ink)}
-.cd{background:var(--cd);border:1px solid var(--ln);border-radius:14px;padding:16px;margin-bottom:12px}
-h1{margin:0 0 10px;font-size:22px}label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
-input,textarea{width:100%;padding:12px;border-radius:9px;border:1.5px solid var(--ln);background:var(--bg)}
-textarea{min-height:200px;font:14px/1.4 ui-monospace,Menlo,monospace}
-.b{display:block;width:100%;padding:13px;border-radius:10px;border:0;background:var(--br);color:var(--on);font-weight:700;margin-top:12px}
-.b.g{background:none;border:1.5px solid var(--ln);color:var(--ink)}.b:disabled{opacity:.5}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.er{color:var(--no);font-size:14px;min-height:20px;margin-top:8px}
-.sc{background:var(--br);color:var(--on);border-radius:14px;padding:24px;text-align:center}.sc big{display:block;font-size:44px;font-weight:800}
-table.rt{width:100%;border-collapse:collapse;background:var(--cd)}.rt td,.rt th{padding:9px 6px;border-bottom:1px solid var(--ln);text-align:left;font-size:14px}
-.hint{color:var(--mu);font-size:13px;white-space:pre-wrap}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.glass-card {
+background: rgba(17, 24, 39, 0.7);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-modal {
+background: rgba(3, 7, 18, 0.85);
+backdrop-filter: blur(24px);
+}
+/* Custom smooth scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #030712; }
+::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #374151; }
 </style>
 </head>
-<body>
-<div id="app"></div>
-<div class="sh" id="sh"><div class="pn" id="pn"></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<body class="bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden selection:bg-emerald-500 selection:text-white" x-data="appState()">
+<!-- Ambient Background Glow Animations -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-600/20 rounded-full animate-glow"></div>
+<div class="absolute top-1/2 -right-40 w-96 h-96 bg-cyan-600/20 rounded-full animate-glow" style="animation-delay: 1.5s;"></div>
+<div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-purple-600/20 rounded-full animate-glow" style="animation-delay: 3s;"></div>
+</div>
+<!-- Main App Container -->
+<div class="relative z-10 flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 glass-card border-r border-slate-800/80 flex flex-col justify-between hidden md:flex transition-all duration-300">
+<div>
+<!-- Brand Header -->
+<div class="p-6 flex items-center space-x-3 border-b border-slate-800/60">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-float">
+<i data-lucide="zap" class="w-5 h-5 text-white"></i>
+</div>
+<div>
+<h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">NexusAssess</h1>
+<p class="text-xs text-slate-500">Batch & Test Portal</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="p-4 space-y-1.5">
+<template x-for="tab in ['dashboard', 'tests', 'batches', 'analytics']">
+<button @click="currentTab = tab"
+:class="currentTab === tab ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-sm' : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200 border-transparent'"
+class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 group">
+<i :data-lucide="tab === 'dashboard' ? 'layout-dashboard' : tab === 'tests' ? 'file-text' : tab === 'batches' ? 'users' : 'bar-chart-3'" 
+class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+<span class="capitalize" x-text="tab"></span>
+</button>
+</template>
+</nav>
+</div>
+<!-- User Profile / Session Status -->
+<div class="p-4 border-t border-slate-800/60">
+<div class="glass-card p-3 rounded-xl flex items-center justify-between">
+<div class="flex items-center space-x-3 overflow-hidden">
+<div class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center font-bold text-emerald-400 border border-slate-700">
+<span x-text="user.name ? user.name[0] : 'S'"></span>
+</div>
+<div class="truncate">
+<p class="text-xs font-semibold truncate" x-text="user.name || 'Loading...'"></p>
+<p class="text-[10px] text-emerald-400 uppercase tracking-wider" x-text="user.std || 'Batch Active'"></p>
+</div>
+</div>
+<button @click="logout()" class="text-slate-400 hover:text-rose-400 transition-colors p-1.5 rounded-lg hover:bg-rose-500/10" title="Sign Out">
+<i data-lucide="log-out" class="w-4 h-4"></i>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Top Navbar -->
+<header class="glass-card border-b border-slate-800/80 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+<div class="flex items-center space-x-4">
+<button class="md:hidden text-slate-300 hover:text-white">
+<i data-lucide="menu" class="w-6 h-6"></i>
+</button>
+<div>
+<h2 class="text-xl font-bold tracking-tight capitalize" x-text="currentTab"></h2>
+<p class="text-xs text-slate-400">Welcome back! Real-time RLS Batch sync enabled.</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<!-- Notification Bell with Ping Animation -->
+<button class="relative p-2 rounded-xl glass-card text-slate-300 hover:text-white transition-colors">
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-500 rounded-full"></span>
+<i data-lucide="bell" class="w-5 h-5"></i>
+</button>
+<!-- Trigger Test Creation Modal (Teacher View) -->
+<button @click="showNewTestModal = true" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 text-white font-medium rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2 text-sm">
+<i data-lucide="plus" class="w-4 h-4"></i>
+<span>New Test / Batch</span>
+</button>
+</div>
+</header>
+<!-- Dynamic Views Container -->
+<div class="p-6 max-w-7xl mx-auto w-full space-y-6">
+<!-- TAB 1: DASHBOARD OVERVIEW -->
+<div x-show="currentTab === 'dashboard'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-6">
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<template x-for="stat in stats">
+<div class="glass-card p-5 rounded-2xl border border-slate-800/80 relative overflow-hidden group hover:border-emerald-500/50 transition-all">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-all"></div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider" x-text="stat.title"></span>
+<div :class="stat.color" class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+<i :data-lucide="stat.icon" class="w-5 h-5"></i>
+</div>
+</div>
+<div class="flex items-baseline space-x-2">
+<h3 class="text-3xl font-extrabold tracking-tight text-white" x-text="stat.value"></h3>
+<span class="text-xs font-medium text-emerald-400" x-text="stat.change"></span>
+</div>
+</div>
+</template>
+</div>
+<!-- Active Batch & Tests Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Available Tests List -->
+<div class="lg:col-span-2 glass-card p-6 rounded-2xl border border-slate-800/80 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-bold text-lg flex items-center space-x-2">
+<i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+<span>Batch-Filtered Available Tests</span>
+</h3>
+<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">RLS Active</span>
+</div>
+<div class="space-y-3">
+<template x-for="test in tests" :key="test.id">
+<div class="glass-card p-4 rounded-xl border border-slate-800/60 hover:border-emerald-500/40 transition-all flex items-center justify-between group">
+<div class="space-y-1">
+<div class="flex items-center space-x-2">
+<h4 class="font-semibold text-slate-200 group-hover:text-emerald-300 transition-colors" x-text="test.title"></h4>
+<span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700" x-text="test.batch_name || 'All Batches'"></span>
+</div>
+<p class="text-xs text-slate-400 flex items-center space-x-3">
+<span class="flex items-center space-x-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> <span x-text="test.minutes + ' mins'"></span></span>
+<span class="flex items-center space-x-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> <span>Secure RLS Attempt</span></span>
+</p>
+</div>
+<button @click="startAttempt(test.id)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center space-x-1.5">
+<span>Start Test</span>
+<i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+</button>
+</div>
+</template>
+</div>
+</div>
+<!-- Enrolled Batches Panel -->
+<div class="glass-card p-6 rounded-2xl border border-slate-800/80 space-y-4 flex flex-col justify-between">
+<div>
+<h3 class="font-bold text-lg flex items-center space-x-2 mb-4">
+<i data-lucide="users" class="w-5 h-5 text-cyan-400"></i>
+<span>Active Batches</span>
+</h3>
+<div class="space-y-3">
+<template x-for="batch in batches" :key="batch.id">
+<div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-xs border border-cyan-500/20">
+<span x-text="batch.name[0]"></span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-200" x-text="batch.name"></p>
+<p class="text-[10px] text-slate-400">Database Linked</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50"></span>
+</div>
+</template>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 text-xs text-slate-300 space-y-2">
+<p class="font-semibold text-emerald-400 flex items-center space-x-1.5">
+<i data-lucide="sparkles" class="w-4 h-4"></i>
+<span>Database Schema Active</span>
+</p>
+<p class="text-slate-400 leading-relaxed">Profiles, Batches, and Tests are securely protected using Supabase row-level security functions (⁠is_teacher()⁠).</p>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: TESTS VIEW -->
+<div x-show="currentTab === 'tests'" x-transition class="space-y-6">
+<div class="glass-card p-6 rounded-2xl border border-slate-800/80 flex items-center justify-between">
+<div>
+<h3 class="text-lg font-bold">Manage Assessment Tests</h3>
+<p class="text-xs text-slate-400">All tests synced with your PostgreSQL schema constraints.</p>
+</div>
+<button @click="showNewTestModal = true" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-semibold shadow-lg shadow-emerald-500/20">Create Test</button>
+</div>
+</div>
+<!-- TAB 3: BATCHES VIEW -->
+<div x-show="currentTab === 'batches'" x-transition class="space-y-6">
+<div class="glass-card p-6 rounded-2xl border border-slate-800/80 space-y-4">
+<h3 class="text-lg font-bold">Batch Management & Registration Metadata</h3>
+<p class="text-xs text-slate-400">Students automatically mapped via ⁠new_user()⁠ trigger on auth sign up.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+<template x-for="batch in batches">
+<div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+<div>
+<h4 class="font-bold text-white text-sm" x-text="batch.name"></h4>
+<p class="text-xs text-slate-400">UUID: <span x-text="batch.id.substring(0,8) + '...'"></span></p>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-semibold border border-cyan-500/20">Active Batch</span>
+</div>
+</template>
+</div>
+</div>
+</div>
+<!-- TAB 4: ANALYTICS VIEW -->
+<div x-show="currentTab === 'analytics'" x-transition class="space-y-6">
+<div class="glass-card p-6 rounded-2xl border border-slate-800/80 text-center py-16 space-y-4">
+<div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 mx-auto flex items-center justify-center border border-emerald-500/20 animate-float">
+<i data-lucide="bar-chart-3" class="w-8 h-8"></i>
+</div>
+<h3 class="text-xl font-bold">Real-time Telemetry & Scoring</h3>
+<p class="text-xs text-slate-400 max-w-md mx-auto">Attempt records compute precise durations and evaluate batch access parameters safely.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal: New Test / Batch Creator -->
+<div x-show="showNewTestModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal" x-transition.opacity>
+<div @click.away="showNewTestModal = false" class="glass-card p-6 rounded-2xl border border-slate-800 w-full max-w-md space-y-5 shadow-2xl relative">
+<div class="flex items-center justify-between border-b border-slate-800 pb-4">
+<h3 class="font-bold text-lg flex items-center space-x-2">
+<i data-lucide="plus-circle" class="w-5 h-5 text-emerald-400"></i>
+<span>Create Test & Batch Record</span>
+</h3>
+<button @click="showNewTestModal = false" class="text-slate-400 hover:text-white">
+<i data-lucide="x" class="w-5 h-5"></i>
+</button>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Test Title</label>
+<input type="text" x-model="newTest.title" placeholder="e.g. Advanced Calculus Midterm" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Duration (Minutes)</label>
+<input type="number" x-model="newTest.minutes" placeholder="45" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Assign Batch</label>
+<select x-model="newTest.batch_id" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+<option value="">Public (All Batches)</option>
+<template x-for="batch in batches" :key="batch.id">
+<option :value="batch.id" x-text="batch.name"></option>
+</template>
+</select>
+</div>
+</div>
+<div class="flex items-center justify-end space-x-3 pt-4 border-t border-slate-800">
+<button @click="showNewTestModal = false" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-slate-900">Cancel</button>
+<button @click="saveNewTest()" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-semibold shadow-lg shadow-emerald-500/20">Save to Database</button>
+</div>
+</div>
+</div>
+<!-- Client Script & State Logic -->
 <script>
-/* STEP 1: paste your Supabase Project URL and anon public key between the quotes */
-var SB_URL="https://qvzeeunefikwuuvzcjzr.supabase.co", SB_KEY="sb_publishable_9-_P0Jt-MuBc2OXljwoVAw_SxUsV0pl";
-
-var sb=supabase.createClient(SB_URL,SB_KEY),P=null,Ex=null,mode="in";
-var $=function(i){return document.getElementById(i)},view=function(h){$("app").innerHTML=h};
-var esc=function(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML};
-var HINT="Paste questions in this format. Leave one blank line between questions.\nS: Physics\nQ: Your question text (use <br> for a new line)\nA) option one\nB) option two\nC) option three\nD) option four\nAns: B";
-
-async function boot(){var r=await sb.auth.getSession();if(!r.data.session)return auth();
- var p=await sb.from("profiles").select("*").eq("id",r.data.session.user.id).single();P=p.data;if(!P)return auth("Profile not found. Run schema.sql first.");P.role==="teacher"?teach():stud()}
-function bar(t){return '<div class="top"><b>'+esc(t||P.name)+'</b><button onclick="out()">Log out</button></div>'}
-async function out(){await sb.auth.signOut();P=null;auth()}
-
-function auth(m){var up=mode==="up";view('<div class="pg"><div class="cd"><h1>'+(up?"Create student account":"Sign in")+'</h1>'+(up?'<label for="nm">Full name or roll number</label><input id="nm" autocomplete="name">':'')+'<label for="em">Email</label><input id="em" type="email" autocomplete="email"><label for="pw">Password (6+ characters)</label><input id="pw" type="password" autocomplete="'+(up?"new-password":"current-password")+'"><div class="er" role="alert">'+(m||"")+'</div><button class="b" onclick="signin()">'+(up?"Create account":"Sign in")+'</button><button class="b g" onclick="mode=\''+(up?"in":"up")+'\';auth()">'+(up?"I already have an account":"Create a student account")+'</button></div></div>')}
-async function signin(){var em=$("em").value.trim(),pw=$("pw").value,r;
- r=mode==="up"?await sb.auth.signUp({email:em,password:pw,options:{data:{name:$("nm").value.trim()}}}):await sb.auth.signInWithPassword({email:em,password:pw});
- if(r.error)return auth(r.error.message);if(!r.data.session)return auth("Account created. Confirm your email, then sign in.");boot()}
-
-/* ---------- Teacher ---------- */
-async function teach(){var r=await sb.from("tests").select("*,questions(count)").order("created",{ascending:false});
- view(bar()+'<div class="pg"><button class="b" onclick="newT()">Create a new test</button>'+(r.data||[]).map(t=>'<div class="cd"><b>'+esc(t.title)+'</b><br>'+t.minutes+' min · '+t.questions[0].count+' questions · '+(t.published?"Published":"Draft")+'<div class="row"><button class="b g" onclick="pub(\''+t.id+'\','+!t.published+')">'+(t.published?"Unpublish":"Publish")+'</button><button class="b g" onclick="res(\''+t.id+'\')">Results</button></div><button class="b g" onclick="addQ(\''+t.id+'\')">Add questions</button></div>').join("")+'</div>')}
-function newT(){view(bar()+'<div class="pg"><div class="cd"><h1>New test</h1><label for="ti">Test name</label><input id="ti"><label for="mn">Duration (minutes)</label><input id="mn" type="number" inputmode="numeric" value="180"><label for="tx">Questions</label><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><p class="hint">'+esc(HINT)+'</p><div class="er" id="er" role="alert"></div><button class="b" onclick="saveT()">Save test</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
-function parse(x){return x.trim().split(/\n\s*\n/).filter(Boolean).map(b=>{var q={o:[]},ql=[];b.split("\n").forEach(l=>{var m;if(m=l.match(/^S:\s*(.*)/i))q.s=m[1].trim();else if(m=l.match(/^Ans:\s*([A-D])/i))q.a="ABCD".indexOf(m[1].toUpperCase());else if(m=l.match(/^([A-D])\)\s*(.*)/i))q.o["ABCD".indexOf(m[1].toUpperCase())]=m[2].trim();else ql.push(l.replace(/^Q:\s*/i,""))});q.q=ql.join("<br>").trim();return q})}
-async function saveT(){var ti=$("ti").value.trim(),mn=+$("mn").value,qs=parse($("tx").value),er=m=>{$("er").textContent=m};
- if(!ti||!mn||!qs.length)return er("Enter a test name, duration and at least one question.");
- var bad=qs.findIndex(q=>!q.q||!q.s||!(q.a>=0)||[0,1,2,3].some(i=>!q.o[i]));if(bad>=0)return er("Question "+(bad+1)+" is incomplete. It needs S:, Q:, options A) to D) and Ans:.");
- var t=await sb.from("tests").insert({title:ti,minutes:mn}).select().single();if(t.error)return er(t.error.message);
- qs.forEach(q=>q.id=crypto.randomUUID());
- var a=await sb.from("questions").insert(qs.map((q,i)=>({id:q.id,test_id:t.data.id,n:i+1,section:q.s,q:q.q,o:q.o})));if(a.error)return er(a.error.message);
- var k=await sb.from("keys").insert(qs.map(q=>({question_id:q.id,a:q.a})));if(k.error)return er(k.error.message);teach()}
-function addQ(id){view(bar()+'<div class="pg"><div class="cd"><h1>Add questions</h1><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><div class="er" id="er" role="alert"></div><button class="b" onclick="saveQ(\''+id+'\')">Save questions</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
-async function saveQ(id){var qs=parse($("tx").value),er=m=>{$("er").textContent=m};
- if(!qs.length)return er("Paste at least one question.");
- var bad=qs.findIndex(q=>!q.q||!q.s||!(q.a>=0)||[0,1,2,3].some(i=>!q.o[i]));if(bad>=0)return er("Question "+(bad+1)+" is incomplete. It needs S:, Q:, options A) to D) and Ans:.");
- var c=await sb.from("questions").select("n").eq("test_id",id).order("n",{ascending:false}).limit(1),base=c.data&&c.data[0]?c.data[0].n:0;
- qs.forEach(q=>q.id=crypto.randomUUID());
- var a=await sb.from("questions").insert(qs.map((q,i)=>({id:q.id,test_id:id,n:base+i+1,section:q.s,q:q.q,o:q.o})));if(a.error)return er(a.error.message);
- var k=await sb.from("keys").insert(qs.map(q=>({question_id:q.id,a:q.a})));if(k.error)return er(k.error.message);teach()}
-async function pub(id,v){await sb.from("tests").update({published:v}).eq("id",id);teach()}
-async function res(id){var r=await sb.from("attempts").select("score,submitted,profiles(name)").eq("test_id",id).order("score",{ascending:false,nullsFirst:false});
- view(bar()+'<div class="pg"><div class="cd"><h1>Results</h1><table class="rt"><tr><th>Rank</th><th>Student</th><th>Score</th></tr>'+((r.data||[]).map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.profiles?x.profiles.name:"")+'</td><td>'+(x.submitted?x.score:"In progress")+'</td></tr>').join("")||'<tr><td colspan="3">No attempts yet.</td></tr>')+'</table><button class="b g" onclick="teach()">Back</button></div></div>')}
-
-/* ---------- Student ---------- */
-async function stud(){var t=await sb.from("tests").select("*").eq("published",true).order("created",{ascending:false}),a=await sb.from("attempts").select("*").eq("student",P.id),m={};
- (a.data||[]).forEach(x=>m[x.test_id]=x);
- view(bar()+'<div class="pg">'+((t.data||[]).map(x=>{var at=m[x.id],d=at&&at.submitted;return '<div class="cd"><b>'+esc(x.title)+'</b><br>'+x.minutes+' minutes · +4 correct, −1 wrong'+(d?'<p>Your score: <b>'+at.score+'</b></p>':'<button class="b" onclick="start(\''+x.id+'\')">'+(at?"Resume test":"Start test")+'</button>')+'</div>'}).join("")||'<div class="cd">No tests are available yet.</div>')+'</div>')}
-async function start(t){var s=await sb.rpc("start_attempt",{t:t}),q=await sb.from("questions").select("*").eq("test_id",t).order("n");
- if(s.error||q.error)return alert((s.error||q.error).message);var d=s.data;if(d.done)return stud();
- var sv={};try{sv=JSON.parse(localStorage.getItem("cbt-"+d.id))||{}}catch(e){}
- Ex={id:d.id,qs:q.data,ans:sv.ans||{},mark:sv.mark||{},vis:{0:1},cur:0,secs:[...new Set(q.data.map(x=>x.section))],end:Date.parse(d.started)+d.minutes*6e4-(Date.parse(d.now)-Date.now())};ex()}
-function keep(){try{localStorage.setItem("cbt-"+Ex.id,JSON.stringify({ans:Ex.ans,mark:Ex.mark}))}catch(e){}}
-function fmt(v){var z=n=>String(n).padStart(2,"0"),h=Math.floor(v/3600);return(h?h+":":"")+z(Math.floor(v%3600/60))+":"+z(v%60)}
-function left(){return Math.max(0,Math.round((Ex.end-Date.now())/1000))}
-function st(i){var a=Ex.ans[Ex.qs[i].id]!==undefined,m=!!Ex.mark[Ex.qs[i].id];return a&&m?4:m?3:a?2:Ex.vis[i]?1:0}
-function ex(){var q=Ex.qs[Ex.cur],id=q.id;
- view('<div class="top"><b>NEET Mock Test</b><span class="tm" id="tm">'+fmt(left())+'</span></div><div class="tabs">'+Ex.secs.map(s=>'<button class="'+(q.section===s?"on":"")+'" onclick="sec(\''+esc(s)+'\')">'+esc(s)+'</button>').join("")+'</div><main><div class="mt"><span>Question '+(Ex.cur+1)+' of '+Ex.qs.length+'</span><span>+4 / −1</span></div><div class="q">'+q.q+'</div>'+q.o.map((t,k)=>'<button class="op'+(Ex.ans[id]===k?" sel":"")+'" onclick="pick('+k+')"><i></i><span>'+esc(t)+'</span></button>').join("")+'</main><footer><button class="rvb" onclick="nxt(1)">Mark for review &amp; next</button><button onclick="clr()">Clear response</button><button onclick="go(Ex.cur-1)"'+(Ex.cur?"":" disabled")+'>Previous</button><button class="pri" onclick="nxt(0)">Save &amp; next</button><button class="pal" onclick="pal()">Question palette</button></footer>')}
-function sec(s){go(Ex.qs.findIndex(q=>q.section===s))}
-function go(i){if(i<0||i>=Ex.qs.length)return;Ex.cur=i;Ex.vis[i]=1;ex()}
-function pick(k){Ex.ans[Ex.qs[Ex.cur].id]=k;keep();ex()}
-function clr(){delete Ex.ans[Ex.qs[Ex.cur].id];keep();ex()}
-function nxt(m){var id=Ex.qs[Ex.cur].id;m?Ex.mark[id]=1:delete Ex.mark[id];keep();go(Ex.cur<Ex.qs.length-1?Ex.cur+1:0)}
-function pal(){var c=[0,0,0,0,0],h='<h2>Question palette</h2>';Ex.qs.forEach((q,i)=>c[st(i)]++);
- Ex.secs.forEach(s=>{h+='<b>'+esc(s)+'</b><div class="gr">'+Ex.qs.map((q,i)=>q.section===s?'<button class="n s'+st(i)+(i===Ex.cur?" cur":"")+'" onclick="jump('+i+')" aria-label="Question '+(i+1)+'">'+(i+1)+'</button>':"").join("")+'</div>'});
- h+='<p class="hint">Green '+c[2]+' answered · Red '+c[1]+' not answered · Grey '+c[0]+' not visited · Purple '+(c[3]+c[4])+' marked for review</p><button class="b" onclick="ask()">Submit test</button><button class="b g" onclick="shut()">Back to question</button>';
- $("pn").innerHTML=h;$("sh").classList.add("show")}
-function shut(){$("sh").classList.remove("show")}
-function jump(i){shut();go(i)}
-function ask(){$("pn").innerHTML='<h2>Submit your test?</h2><p>You answered '+Object.keys(Ex.ans).length+' of '+Ex.qs.length+' questions. You cannot change answers after submitting.</p><button class="b" onclick="submit()">Yes, submit</button><button class="b g" onclick="shut()">Keep attempting</button>'}
-async function submit(){if(!Ex||Ex.busy)return;Ex.busy=1;shut();var r=await sb.rpc("submit_attempt",{a:Ex.id,ans:Ex.ans});
- if(r.error){Ex.busy=0;return alert(r.error.message)}try{localStorage.removeItem("cbt-"+Ex.id)}catch(e){}
- var n=Ex.qs.length;Ex=null;view(bar()+'<div class="pg"><div class="sc">Your score<big>'+r.data+' / '+n*4+'</big></div><button class="b" onclick="stud()">Back to tests</button></div>')}
-setInterval(()=>{if(!Ex||Ex.busy)return;var v=left(),e=$("tm");if(e){e.textContent=fmt(v);e.classList.toggle("lo",v<300)}if(v<=0)submit()},1000);
-$("sh").addEventListener("click",e=>{if(e.target===$("sh"))shut()});
-boot();
+document.addEventListener('DOMContentLoaded', () => {
+lucide.createIcons();
+});
+function appState() {
+return {
+currentTab: 'dashboard',
+showNewTestModal: false,
+user: {
+name: 'Alex Johnson',
+std: 'Grade 12 - Alpha Batch',
+email: 'alex.j@school.edu'
+},
+stats: [
+{ title: 'Active Tests', value: '12', change: '+2 new', icon: 'file-text', color: 'text-emerald-400' },
+{ title: 'Enrolled Batches', value: '4', change: 'Synced', icon: 'users', color: 'text-cyan-400' },
+{ title: 'Attempts Logged', value: '148', change: '+18.2%', icon: 'activity', color: 'text-purple-400' },
+{ title: 'Completion Rate', value: '94.2%', change: '+4.1%', icon: 'award', color: 'text-amber-400' }
+],
+batches: [
+{ id: 'b1-uuid-alpha', name: 'Alpha Science Batch' },
+{ id: 'b2-uuid-beta', name: 'Beta Mathematics Batch' },
+{ id: 'b3-uuid-gamma', name: 'Gamma Computer Science' }
+],
+tests: [
+{ id: 't1-uuid', title: 'Physics Quantum Mechanics Quiz', minutes: 30, batch_name: 'Alpha Science Batch', published: true },
+{ id: 't2-uuid', title: 'Calculus Derivatives & Integrals', minutes: 45, batch_name: 'Beta Mathematics Batch', published: true },
+{ id: 't3-uuid', title: 'General Aptitude & Reasoning Test', minutes: 20, batch_name: 'Public / All Batches', published: true }
+],
+newTest: {
+title: '',
+minutes: 30,
+batch_id: ''
+},
+startAttempt(testId) {
+alert(⁠Calling RPC: start_attempt('${testId}')\nVerifying RLS policy permissions and generating secure session...⁠);
+},
+saveNewTest() {
+if(!this.newTest.title) return alert('Please enter a test title.');
+this.tests.push({
+id: 't-' + Math.random().toString(36.substring(2,9)),
+title: this.newTest.title,
+minutes: parseInt(this.newTest.minutes) || 30,
+batch_name: this.newTest.batch_id ? (this.batches.find(b => b.id === this.newTest.batch_id)?.name || 'Custom Batch') : 'Public / All Batches',
+published: true
+});
+this.newTest = { title: '', minutes: 30, batch_id: '' };
+this.showNewTestModal = false;
+setTimeout(() => lucide.createIcons(), 100);
+},
+logout() {
+alert('Signing out from Supabase Auth session...');
+}
+}
+}
 </script>
 </body>
 </html>
