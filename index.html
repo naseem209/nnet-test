@@ -72,7 +72,7 @@ async function signin(){var em=$("em").value.trim(),pw=$("pw").value,r;
 
 /* ---------- Teacher ---------- */
 async function teach(){var r=await sb.from("tests").select("*,questions(count)").order("created",{ascending:false});
- view(bar()+'<div class="pg"><button class="b" onclick="newT()">Create a new test</button>'+(r.data||[]).map(t=>'<div class="cd"><b>'+esc(t.title)+'</b><br>'+t.minutes+' min · '+t.questions[0].count+' questions · '+(t.published?"Published":"Draft")+'<div class="row"><button class="b g" onclick="pub(\''+t.id+'\','+!t.published+')">'+(t.published?"Unpublish":"Publish")+'</button><button class="b g" onclick="res(\''+t.id+'\')">Results</button></div></div>').join("")+'</div>')}
+ view(bar()+'<div class="pg"><button class="b" onclick="newT()">Create a new test</button>'+(r.data||[]).map(t=>'<div class="cd"><b>'+esc(t.title)+'</b><br>'+t.minutes+' min · '+t.questions[0].count+' questions · '+(t.published?"Published":"Draft")+'<div class="row"><button class="b g" onclick="pub(\''+t.id+'\','+!t.published+')">'+(t.published?"Unpublish":"Publish")+'</button><button class="b g" onclick="res(\''+t.id+'\')">Results</button></div><button class="b g" onclick="addQ(\''+t.id+'\')">Add questions</button></div>').join("")+'</div>')}
 function newT(){view(bar()+'<div class="pg"><div class="cd"><h1>New test</h1><label for="ti">Test name</label><input id="ti"><label for="mn">Duration (minutes)</label><input id="mn" type="number" inputmode="numeric" value="180"><label for="tx">Questions</label><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><p class="hint">'+esc(HINT)+'</p><div class="er" id="er" role="alert"></div><button class="b" onclick="saveT()">Save test</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
 function parse(x){return x.trim().split(/\n\s*\n/).filter(Boolean).map(b=>{var q={o:[]},ql=[];b.split("\n").forEach(l=>{var m;if(m=l.match(/^S:\s*(.*)/i))q.s=m[1].trim();else if(m=l.match(/^Ans:\s*([A-D])/i))q.a="ABCD".indexOf(m[1].toUpperCase());else if(m=l.match(/^([A-D])\)\s*(.*)/i))q.o["ABCD".indexOf(m[1].toUpperCase())]=m[2].trim();else ql.push(l.replace(/^Q:\s*/i,""))});q.q=ql.join("<br>").trim();return q})}
 async function saveT(){var ti=$("ti").value.trim(),mn=+$("mn").value,qs=parse($("tx").value),er=m=>{$("er").textContent=m};
@@ -81,6 +81,14 @@ async function saveT(){var ti=$("ti").value.trim(),mn=+$("mn").value,qs=parse($(
  var t=await sb.from("tests").insert({title:ti,minutes:mn}).select().single();if(t.error)return er(t.error.message);
  qs.forEach(q=>q.id=crypto.randomUUID());
  var a=await sb.from("questions").insert(qs.map((q,i)=>({id:q.id,test_id:t.data.id,n:i+1,section:q.s,q:q.q,o:q.o})));if(a.error)return er(a.error.message);
+ var k=await sb.from("keys").insert(qs.map(q=>({question_id:q.id,a:q.a})));if(k.error)return er(k.error.message);teach()}
+function addQ(id){view(bar()+'<div class="pg"><div class="cd"><h1>Add questions</h1><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><div class="er" id="er" role="alert"></div><button class="b" onclick="saveQ(\''+id+'\')">Save questions</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
+async function saveQ(id){var qs=parse($("tx").value),er=m=>{$("er").textContent=m};
+ if(!qs.length)return er("Paste at least one question.");
+ var bad=qs.findIndex(q=>!q.q||!q.s||!(q.a>=0)||[0,1,2,3].some(i=>!q.o[i]));if(bad>=0)return er("Question "+(bad+1)+" is incomplete. It needs S:, Q:, options A) to D) and Ans:.");
+ var c=await sb.from("questions").select("n").eq("test_id",id).order("n",{ascending:false}).limit(1),base=c.data&&c.data[0]?c.data[0].n:0;
+ qs.forEach(q=>q.id=crypto.randomUUID());
+ var a=await sb.from("questions").insert(qs.map((q,i)=>({id:q.id,test_id:id,n:base+i+1,section:q.s,q:q.q,o:q.o})));if(a.error)return er(a.error.message);
  var k=await sb.from("keys").insert(qs.map(q=>({question_id:q.id,a:q.a})));if(k.error)return er(k.error.message);teach()}
 async function pub(id,v){await sb.from("tests").update({published:v}).eq("id",id);teach()}
 async function res(id){var r=await sb.from("attempts").select("score,submitted,profiles(name)").eq("test_id",id).order("score",{ascending:false,nullsFirst:false});
