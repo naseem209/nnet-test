@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NEET Mock Test</title>
 <style>
-:root{--bg:#f2f4f8;--cd:#fff;--ink:#1a2330;--mu:#5b6878;--ln:#d3dae4;--br:#1f3459;--on:#fff;--ok:#2a9a4a;--no:#d43f3f;--rv:#7a4cc8;--nv:#e3e7ed;--sl:#e6f0fa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#10151c;--cd:#19212b;--ink:#e8edf3;--mu:#9aa8b8;--ln:#2c3744;--br:#4a90d9;--on:#0c1118;--ok:#3cb35d;--no:#e05a5a;--rv:#9b78e0;--nv:#2a3441;--sl:#1f3047}}
+:root{--bg:#f2f4f8;--cd:#fff;--ink:#1a2330;--mu:#5b6878;--ln:#d3dae4;--br:#4f46e5;--on:#fff;--ok:#2a9a4a;--no:#d43f3f;--rv:#7a4cc8;--nv:#e3e7ed;--sl:#e6f0fa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#10151c;--cd:#19212b;--ink:#e8edf3;--mu:#9aa8b8;--ln:#2c3744;--br:#818cf8;--on:#0c1118;--ok:#3cb35d;--no:#e05a5a;--rv:#9b78e0;--nv:#2a3441;--sl:#1f3047}}
 *{box-sizing:border-box}html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Roboto,sans-serif}
 button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
@@ -46,6 +46,33 @@ textarea{min-height:200px;font:14px/1.4 ui-monospace,Menlo,monospace}
 table.rt{width:100%;border-collapse:collapse;background:var(--cd)}.rt td,.rt th{padding:9px 6px;border-bottom:1px solid var(--ln);text-align:left;font-size:14px}
 .hint{color:var(--mu);font-size:13px;white-space:pre-wrap}
 .hd{background:#1f3459;color:#fff;border-bottom:4px solid #c8872a;border-radius:14px;padding:22px 16px;text-align:center;margin-bottom:14px}.hd h1{margin:0 0 6px}.hd p{margin:0;opacity:.85;font-size:14px}.ct{text-align:center}.ct h2{margin:0 0 4px;font-size:20px}.pw{display:flex;gap:6px}.pw button{border:1.5px solid var(--ln);background:var(--cd);border-radius:9px;padding:0 12px}select{width:100%;padding:12px;border-radius:9px;border:1.5px solid var(--ln);background:var(--bg)}
+
+:root{--grad:linear-gradient(135deg,#4f46e5 0%,#7c3aed 55%,#06b6d4 100%)}
+body{background:radial-gradient(1000px 520px at 8% -8%,rgba(124,58,237,.20),transparent 60%),radial-gradient(800px 460px at 100% 0,rgba(6,182,212,.18),transparent 55%),var(--bg);background-attachment:fixed}
+.top{background:var(--grad);color:#fff}
+.hd,.sc{background:var(--grad);background-size:200% 200%;color:#fff;border:0;animation:flow 8s ease infinite}
+.cd{border-radius:18px;box-shadow:0 10px 30px rgba(79,70,229,.10)}
+.b{background:var(--grad);color:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(79,70,229,.35);position:relative;overflow:hidden;transition:transform .15s}
+.b::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%)}
+.b:hover::after{transform:translateX(120%);transition:transform .7s}
+.b:active{transform:scale(.97)}
+.b.g{background:var(--cd);color:var(--ink);box-shadow:none;border:1.5px solid var(--ln)}.b.g::after{display:none}
+.b.sm{width:auto;margin:0;padding:8px 12px}
+.op{border-radius:14px}.op:active{transform:scale(.98)}.op.sel{animation:pop .25s ease;box-shadow:0 0 0 3px rgba(79,70,229,.25)}
+.n:active,footer button:active{transform:scale(.94)}footer .pri{background:var(--grad);border:0}
+.tm.lo{animation:pulse 1s infinite}
+.pg>*{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}.pg>:nth-child(2){animation-delay:.07s}.pg>:nth-child(3){animation-delay:.14s}.pg>:nth-child(4){animation-delay:.21s}.pg>:nth-child(n+5){animation-delay:.28s}
+.sh.show .pn{animation:slide .3s cubic-bezier(.2,.8,.2,1)}
+input:focus,textarea:focus,select:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(79,70,229,.2)}
+.sym{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.sym button{min-width:40px;height:38px;border:1.5px solid var(--ln);background:var(--cd);border-radius:10px;font-size:16px}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.ans{height:46px;border-radius:12px;border:1.5px solid var(--ln);background:var(--cd);font-weight:700;font-size:17px}.ans.on{background:var(--grad);color:#fff;border-color:transparent;animation:pop .25s}
+.qi{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln);font-size:14px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.96)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes flow{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+@keyframes pulse{50%{opacity:.45}}
+@keyframes slide{from{transform:translateY(100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -69,7 +96,7 @@ async function out(){await sb.auth.signOut();P=null;auth()}
 var ACADEMY="Your Academy Name",DOM="@cbt.example.com",BT=[];
 var pw=i=>'<div class="pw"><input id="'+i+'" type="password"><button type="button" onclick="tp(\''+i+'\')">Show</button></div>';
 function tp(i){var p=$(i),h=p.type==="password";p.type=h?"text":"password";p.nextSibling.textContent=h?"Hide":"Show"}
-function auth(){view('<div class="pg"><div class="hd"><h1>'+esc(ACADEMY)+'</h1><p>Practice tests based on the NEET exam pattern</p></div>'+[["Admin Login","Manage students, batches and tests.","adminF()"],["Student Login","Log in to take your batch tests.","studF()"],["Student Registration","Create your account before taking any test.","regF()"]].map(c=>'<div class="cd ct"><h2>'+c[0]+'</h2><p class="hint">'+c[1]+'</p><button class="b" onclick="'+c[2]+'">'+c[0]+'</button></div>').join("")+'</div>')}
+function auth(){view('<div class="pg"><div class="hd"><h1>'+esc(ACADEMY)+'</h1><p>Practice tests based on the NEET exam pattern</p></div>'+[["Admin Login","Manage students, batches and tests.","adminF()"],["Student Login","Log in to take your batch tests.","studF()"],["Student Registration","Create your account before taking any test.","regF()"]].map(c=>'<div class="cd ct"><div style="font-size:30px">'+{"adminF()":"🛡️","studF()":"🎓","regF()":"✍️"}[c[2]]+'</div><h2>'+c[0]+'</h2><p class="hint">'+c[1]+'</p><button class="b" onclick="'+c[2]+'">'+c[0]+'</button></div>').join("")+'</div>')}
 function studF(m){view('<div class="pg"><div class="cd"><h1>Student login</h1><label for="un">Username</label><input id="un" autocapitalize="none" autocomplete="username"><label for="pw1">Password</label>'+pw("pw1")+'<div class="er" role="alert">'+(m||"")+'</div><button class="b" onclick="studLogin()">Login</button><button class="b g" onclick="auth()">Back</button><p class="hint">Forgot your username or password? Please ask your academy admin.</p></div></div>')}
 async function studLogin(){var r=await sb.auth.signInWithPassword({email:$("un").value.trim().toLowerCase()+DOM,password:$("pw1").value});if(r.error)return studF("Wrong username or password.");boot()}
 function adminF(m){view('<div class="pg"><div class="cd"><h1>Admin login</h1><label for="ae">Email</label><input id="ae" type="email" autocomplete="email"><label for="ap">Password</label>'+pw("ap")+'<div class="er" role="alert">'+(m||"")+'</div><button class="b" onclick="adminLogin()">Login</button><button class="b g" onclick="auth()">Back</button></div></div>')}
@@ -88,16 +115,12 @@ async function reg(){var v=i=>$(i).value.trim(),us=v("us").toLowerCase(),er=m=>{
 /* ---------- Teacher ---------- */
 async function teach(){var bb=await sb.from("batches").select("*").order("name");BT=bb.data||[];var r=await sb.from("tests").select("*,questions(count)").order("created",{ascending:false});
  view(bar()+'<div class="pg"><button class="b" onclick="newT()">Create a new test</button><div class="row"><button class="b g" onclick="bats()">Batches</button><button class="b g" onclick="studs()">Students</button></div>'+(r.data||[]).map(t=>'<div class="cd"><b>'+esc(t.title)+'</b><br>'+(BT.find(x=>x.id===t.batch_id)||{name:"All batches"}).name+' · '+t.minutes+' min · '+t.questions[0].count+' questions · '+(t.published?"Published":"Draft")+'<div class="row"><button class="b g" onclick="pub(\''+t.id+'\','+!t.published+')">'+(t.published?"Unpublish":"Publish")+'</button><button class="b g" onclick="res(\''+t.id+'\')">Results</button></div><button class="b g" onclick="addQ(\''+t.id+'\')">Add questions</button></div>').join("")+'</div>')}
-function newT(){view(bar()+'<div class="pg"><div class="cd"><h1>New test</h1><label for="ti">Test name</label><input id="ti"><label for="mn">Duration (minutes)</label><input id="mn" type="number" inputmode="numeric" value="180"><label for="bt">Batch</label><select id="bt"><option value="">All batches</option>'+BT.map(x=>'<option value="'+x.id+'">'+esc(x.name)+'</option>').join("")+'</select><label for="tx">Questions</label><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><p class="hint">'+esc(HINT)+'</p><div class="er" id="er" role="alert"></div><button class="b" onclick="saveT()">Save test</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
+function newT(){view(bar()+'<div class="pg"><div class="cd"><h1>New test</h1><label for="ti">Test name</label><input id="ti"><label for="mn">Duration (minutes)</label><input id="mn" type="number" inputmode="numeric" value="180"><label for="bt">Batch</label><select id="bt"><option value="">All batches</option>'+BT.map(x=>'<option value="'+x.id+'">'+esc(x.name)+'</option>').join("")+'</select><div class="er" id="er" role="alert"></div><button class="b" onclick="saveT()">Create and add questions</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
 function parse(x){return x.trim().split(/\n\s*\n/).filter(Boolean).map(b=>{var q={o:[]},ql=[];b.split("\n").forEach(l=>{var m;if(m=l.match(/^S:\s*(.*)/i))q.s=m[1].trim();else if(m=l.match(/^Ans:\s*([A-D])/i))q.a="ABCD".indexOf(m[1].toUpperCase());else if(m=l.match(/^([A-D])\)\s*(.*)/i))q.o["ABCD".indexOf(m[1].toUpperCase())]=m[2].trim();else ql.push(l.replace(/^Q:\s*/i,""))});q.q=ql.join("<br>").trim();return q})}
-async function saveT(){var ti=$("ti").value.trim(),mn=+$("mn").value,qs=parse($("tx").value),er=m=>{$("er").textContent=m};
- if(!ti||!mn||!qs.length)return er("Enter a test name, duration and at least one question.");
- var bad=qs.findIndex(q=>!q.q||!q.s||!(q.a>=0)||[0,1,2,3].some(i=>!q.o[i]));if(bad>=0)return er("Question "+(bad+1)+" is incomplete. It needs S:, Q:, options A) to D) and Ans:.");
- var t=await sb.from("tests").insert({title:ti,minutes:mn,batch_id:$("bt").value||null}).select().single();if(t.error)return er(t.error.message);
- qs.forEach(q=>q.id=crypto.randomUUID());
- var a=await sb.from("questions").insert(qs.map((q,i)=>({id:q.id,test_id:t.data.id,n:i+1,section:q.s,q:q.q,o:q.o})));if(a.error)return er(a.error.message);
- var k=await sb.from("keys").insert(qs.map(q=>({question_id:q.id,a:q.a})));if(k.error)return er(k.error.message);teach()}
-function addQ(id){view(bar()+'<div class="pg"><div class="cd"><h1>Add questions</h1><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><div class="er" id="er" role="alert"></div><button class="b" onclick="saveQ(\''+id+'\')">Save questions</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
+async function saveT(){var ti=$("ti").value.trim(),mn=+$("mn").value;if(!ti||!(mn>0))return $("er").textContent="Enter a test name and a duration.";
+ var t=await sb.from("tests").insert({title:ti,minutes:mn,batch_id:$("bt").value||null}).select().single();if(t.error)return $("er").textContent=t.error.message;addQ(t.data.id)}
+function bulk(id){view(bar()+'<div class="pg"><div class="cd"><h1>Import questions</h1><p class="hint">Choose a .txt file in the question format, or paste text below.</p><input type="file" accept=".txt,text/plain" onchange="fileIn(this)"><textarea id="tx" placeholder="'+esc(HINT)+'"></textarea><div class="er" id="er" role="alert"></div><button class="b" onclick="saveQ(\''+id+'\')">Save questions</button><button class="b g" onclick="teach()">Cancel</button></div></div>')}
+function fileIn(i){var f=i.files[0];if(!f)return;var r=new FileReader();r.onload=()=>{$("tx").value=r.result};r.readAsText(f)}
 async function saveQ(id){var qs=parse($("tx").value),er=m=>{$("er").textContent=m};
  if(!qs.length)return er("Paste at least one question.");
  var bad=qs.findIndex(q=>!q.q||!q.s||!(q.a>=0)||[0,1,2,3].some(i=>!q.o[i]));if(bad>=0)return er("Question "+(bad+1)+" is incomplete. It needs S:, Q:, options A) to D) and Ans:.");
@@ -109,6 +132,23 @@ function bats(){view(bar()+'<div class="pg"><div class="cd"><h1>Batches</h1>'+(B
 async function addB(){var n=$("nb").value.trim();if(!n)return;var r=await sb.from("batches").insert({name:n});if(r.error)return $("er").textContent=r.error.message;var bb=await sb.from("batches").select("*").order("name");BT=bb.data||[];bats()}
 async function studs(){var r=await sb.from("profiles").select("name,username,phone,std,batch_id").eq("role","student").order("name"),d=r.data||[];
  view(bar()+'<div class="pg"><div class="cd"><h1>Students ('+d.length+')</h1>'+d.map(s=>'<p><b>'+esc(s.name||"")+'</b> · '+esc(s.username||"")+'<br>'+esc(s.phone||"")+' · '+esc(s.std||"")+' · '+esc((BT.find(x=>x.id===s.batch_id)||{}).name||"")+'</p>').join("")+'<button class="b g" onclick="teach()">Back</button></div></div>')}
+var SO=["Both Statement I and Statement II are correct","Both Statement I and Statement II are incorrect","Statement I is correct but Statement II is incorrect","Statement I is incorrect but Statement II is correct"],AO=["Both A and R are true and R is the correct explanation of A","Both A and R are true but R is NOT the correct explanation of A","A is true but R is false","A is false but R is true"],SYM=["²","³","⁻¹","₂","₃","°","±","×","÷","√","π","Ω","µ","Δ","→","≈"],LF=null,LS="Physics",CA=-1;
+async function addQ(id,msg){CA=-1;var c=await sb.from("questions").select("id",{count:"exact",head:true}).eq("test_id",id),n=c.count||0;
+ view(bar()+'<div class="pg"><div class="cd"><h1>Question '+(n+1)+'</h1><p class="hint">'+n+' saved so far</p><label for="sc">Section</label><select id="sc">'+["Physics","Chemistry","Botany","Zoology"].map(x=>'<option'+(x===LS?" selected":"")+'>'+x+'</option>').join("")+'</select><label for="qt">Question type</label><select id="qt" onchange="tpl()"><option value="n">Normal (one correct answer)</option><option value="s">Statement I and II</option><option value="a">Assertion and Reason</option></select><label for="qx">Question</label><textarea id="qx" style="min-height:130px;font:16px/1.4 system-ui,sans-serif"></textarea><div class="sym">'+SYM.map(x=>'<button type="button" onclick="ins(\''+x+'\')">'+x+'</button>').join("")+'</div>'+[0,1,2,3].map(i=>'<label for="o'+i+'">Option '+"ABCD".charAt(i)+'</label><input id="o'+i+'">').join("")+'<label>Correct answer</label><div class="row4">'+[0,1,2,3].map(i=>'<button type="button" class="ans" id="ca'+i+'" onclick="setA('+i+')">'+"ABCD".charAt(i)+'</button>').join("")+'</div><div class="er" id="er" role="alert">'+(msg||"")+'</div><button class="b" onclick="saveOne(\''+id+'\')">Save and next question</button><button class="b g" onclick="qlist(\''+id+'\')">View or delete questions</button><button class="b g" onclick="bulk(\''+id+'\')">Import from file</button><button class="b g" onclick="teach()">Done</button></div></div>');
+ document.querySelectorAll("#app input,#app textarea").forEach(e=>e.addEventListener("focus",()=>LF=e))}
+function tpl(){var t=$("qt").value;if(t==="n")return;$("qx").value=t==="s"?"Statement I: \nStatement II: \nChoose the correct answer.":"Assertion (A): \nReason (R): \nChoose the correct answer.";(t==="s"?SO:AO).forEach((x,i)=>$("o"+i).value=x)}
+function ins(c){var e=LF&&LF.tagName!=="SELECT"?LF:$("qx"),a=e.selectionStart==null?e.value.length:e.selectionStart,b=e.selectionEnd==null?a:e.selectionEnd;e.value=e.value.slice(0,a)+c+e.value.slice(b);e.focus();e.selectionStart=e.selectionEnd=a+c.length}
+function setA(i){CA=i;[0,1,2,3].forEach(k=>$("ca"+k).classList.toggle("on",k===i))}
+async function saveOne(id){var er=m=>{$("er").textContent=m},q=$("qx").value.trim(),o=[0,1,2,3].map(i=>$("o"+i).value.trim());
+ if(!q||o.some(x=>!x))return er("Write the question and all four options.");if(CA<0)return er("Tap the correct answer: A, B, C or D.");
+ LS=$("sc").value;var h=esc(q).replace(/^(Statement I|Statement II|Assertion \(A\)|Reason \(R\)):/gm,"<b>$1:</b>").replace(/\n/g,"<br>"),qid=crypto.randomUUID(),
+ c=await sb.from("questions").select("n").eq("test_id",id).order("n",{ascending:false}).limit(1);
+ var a=await sb.from("questions").insert({id:qid,test_id:id,n:(c.data&&c.data[0]?c.data[0].n:0)+1,section:LS,q:h,o:o});if(a.error)return er(a.error.message);
+ var k=await sb.from("keys").insert({question_id:qid,a:CA});if(k.error){await sb.from("questions").delete().eq("id",qid);return er(k.error.message)}
+ addQ(id,"Saved. Add the next question.")}
+async function qlist(id){var r=await sb.from("questions").select("id,n,section,q").eq("test_id",id).order("n"),d=r.data||[];
+ view(bar()+'<div class="pg"><div class="cd"><h1>'+d.length+' questions</h1>'+d.map(x=>'<div class="qi"><span><b>'+x.n+'.</b> <i>'+esc(x.section)+'</i><br>'+esc(x.q.replace(/<[^>]*>/g," ").slice(0,90))+'</span><button class="b g sm" onclick="delQ(\''+id+'\',\''+x.id+'\')">Delete</button></div>').join("")+'<button class="b" onclick="addQ(\''+id+'\')">Add a question</button><button class="b g" onclick="teach()">Back</button></div></div>')}
+async function delQ(t,q){if(!confirm("Delete this question?"))return;await sb.from("questions").delete().eq("id",q);qlist(t)}
 async function pub(id,v){await sb.from("tests").update({published:v}).eq("id",id);teach()}
 async function res(id){var r=await sb.from("attempts").select("score,submitted,profiles(name)").eq("test_id",id).order("score",{ascending:false,nullsFirst:false});
  view(bar()+'<div class="pg"><div class="cd"><h1>Results</h1><table class="rt"><tr><th>Rank</th><th>Student</th><th>Score</th></tr>'+((r.data||[]).map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.profiles?x.profiles.name:"")+'</td><td>'+(x.submitted?x.score:"In progress")+'</td></tr>').join("")||'<tr><td colspan="3">No attempts yet.</td></tr>')+'</table><button class="b g" onclick="teach()">Back</button></div></div>')}
@@ -146,7 +186,7 @@ function jump(i){shut();go(i)}
 function ask(){$("pn").innerHTML='<h2>Submit your test?</h2><p>You answered '+Object.keys(Ex.ans).length+' of '+Ex.qs.length+' questions. You cannot change answers after submitting.</p><button class="b" onclick="submit()">Yes, submit</button><button class="b g" onclick="shut()">Keep attempting</button>'}
 async function submit(){if(!Ex||Ex.busy)return;Ex.busy=1;shut();var r=await sb.rpc("submit_attempt",{a:Ex.id,ans:Ex.ans});
  if(r.error){Ex.busy=0;return alert(r.error.message)}try{localStorage.removeItem("cbt-"+Ex.id)}catch(e){}
- var n=Ex.qs.length;Ex=null;view(bar()+'<div class="pg"><div class="sc">Your score<big>'+r.data+' / '+n*4+'</big></div><button class="b" onclick="stud()">Back to tests</button></div>')}
+ var n=Ex.qs.length;Ex=null;view(bar()+'<div class="pg"><div class="sc">Your score<big id="sv">'+r.data+' / '+n*4+'</big></div><button class="b" onclick="stud()">Back to tests</button></div>');var e=$("sv"),t=r.data,s0=performance.now();(function f(w){var p=Math.min(1,(w-s0)/900);e.textContent=Math.round(t*(1-Math.pow(1-p,3)))+" / "+n*4;if(p<1)requestAnimationFrame(f)})(s0)}
 setInterval(()=>{if(!Ex||Ex.busy)return;var v=left(),e=$("tm");if(e){e.textContent=fmt(v);e.classList.toggle("lo",v<300)}if(v<=0)submit()},1000);
 $("sh").addEventListener("click",e=>{if(e.target===$("sh"))shut()});
 boot();
